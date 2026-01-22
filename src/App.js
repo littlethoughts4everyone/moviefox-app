@@ -1,24 +1,26 @@
-import logo from './logo.svg';
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+import AppLayout from './AppLayout';
+import ActorMutualMovies from './components/ActorMutualMovies';
+import RevenueLists from './components/RevenueLists';
+import PeopleTrivia from './components/PeopleTrivia';
+import FindMovies from './components/FindMovies';
+import CharacterGuessingGame from './components/CharacterGuessingGame';
 import './App.css';
+import "charts.css/dist/charts.css";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AppLayout/>}>
+          <Route path="mutualmovies" element={<ActorMutualMovies />} />
+          <Route path="revenuelists" element={<RevenueLists />} />
+          <Route path="peopletrivia" element={<PeopleTrivia />} />
+          <Route path="findmovies" element={<FindMovies />} />
+          <Route path="characterguessinggame" element={<CharacterGuessingGame />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
