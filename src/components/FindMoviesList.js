@@ -1,6 +1,7 @@
 
-function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, avgRating, profit }) {
+function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, avgRating, profit, handleClearList }) {
     return (
+    <>
         <div className="lists-container">
             <div className="movie-ranking-list">
                 <p>Budget Ranking</p>
@@ -115,6 +116,13 @@ function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, 
                 </ul>
             </div>
         </div>
+        <button
+        className="clear-button"
+        aria-label="clear list"
+        onClick={handleClearList} >
+            Clear Lists
+        </button>
+    </>
     );
 }
 
