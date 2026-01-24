@@ -47,7 +47,6 @@ function CharacterGuessingGame() {
                 !movie.genre_ids.includes(10770) &&
                 movie.original_title !== "Final Cut: Hölgyeim és uraim" &&
                 !movie.character.includes("uncredited") &&
-                movie.vote_average > 0 &&
                 movie.vote_count > 140
                 )
                 .map(movie => 
