@@ -27,7 +27,7 @@ function FindMoviesResults({ results, isLoading, hasSearched, handleAddToMovieLi
                             <p>{`Rating: ${movie.vote_average.toFixed(1)}`}</p>
                             <button 
                             onClick={() => handleAddToMovieList(movie)}
-                            className="add-button"
+                            className="add-movie-button"
                             aria-label="add to movie list" >
                                 Add to Movie List
                             </button>
