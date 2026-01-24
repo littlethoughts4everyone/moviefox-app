@@ -36,7 +36,7 @@ p {
   font-size: 1.2rem;
 }
 
-/* Header and Footer Styles */
+/* Header, Main and Footer Styles */
 
 .app-header {
   text-align: center;
@@ -80,6 +80,7 @@ p {
 .main-container {
   display: flex;
   justify-content: center;
+  min-height: 47rem;
 }
 
 .section-container {
@@ -168,6 +169,7 @@ button:hover {
   flex-direction: column;
   align-items: center;
   gap: 1rem;
+  margin-top: 2rem;
 }
 
 table {
@@ -183,6 +185,12 @@ td {
   width: 25%;
 }
 
+.add-button.disabled,
+.add-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 .lists-container {
   margin-top: 2rem;
   margin-bottom: 2rem;
@@ -194,6 +202,10 @@ td {
   display: flex;
   justify-content: space-between;
   gap: 2rem;
+}
+
+.list-entry p {
+  margin: 0.5rem 0;
 }
 
 .highest {
@@ -294,6 +306,10 @@ td {
   margin: .5rem 0;
 }
 
+.add-movie-button {
+  width: 50%;
+}
+
 .movie-ranking-list {
   width: 45%;
   display: flex;
@@ -305,6 +321,12 @@ td {
 
 .movie-ranking-list p {
   font-size: 1rem;
+}
+
+.clear-button {
+  width: 20%;
+  height: 2rem;
+  margin-bottom: 2rem;
 }
 
 /* Guessing Game Styles */
