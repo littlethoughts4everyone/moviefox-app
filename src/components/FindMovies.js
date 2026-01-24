@@ -104,6 +104,10 @@ function FindMovies() {
     const avgRating = counts.rating > 0 ? (totals.rating / counts.rating).toFixed(2) : "N/A";
     const profit = totals.revenue - totals.budget;
 
+    const handleClearList = () => {
+        setMovieList([]);
+    }
+
     return (
         <section className="section-container">
             <h2>Find Movies</h2>
@@ -123,7 +127,8 @@ function FindMovies() {
             avgRevenue={avgRevenue}
             avgRuntime={avgRuntime}
             avgRating={avgRating}
-            profit={profit} />
+            profit={profit}
+            handleClearList={handleClearList} />
         </section>
     );
 }
