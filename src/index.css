@@ -349,10 +349,6 @@ td {
   gap: 20px;
 }
 
-.character-container {
-  width: 50%;
-}
-
 .drag-container {
   border: 1px solid white;
   border-radius: 10px;
@@ -377,10 +373,11 @@ td {
 }
 
 .check-container {
+  width: 100%;
   display: flex;
   flex-wrap: wrap;  
   justify-content: flex-start;
-  gap: 10px;
+  gap: 1rem;
   margin-bottom: 2rem;
 }
 
