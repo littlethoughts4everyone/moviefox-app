@@ -189,9 +189,18 @@ function RevenueLists() {
         avgRating: avgRating,
     };
 
+    const alreadyExists = ranking.some(
+        person => person.name.toLowerCase() === rankingEntry.name.toLowerCase()
+    );
+
     const handleAddToRanking = () => {
+        
+        if (alreadyExists) {
+            return;
+        }
+
         setRanking(prev => [...prev, rankingEntry]);
-    }
+    };
 
     return (
         <section className="section-container">
@@ -220,7 +229,8 @@ function RevenueLists() {
             lowestRevenue={lowestRevenue}
             lowestRuntime={lowestRuntime}
             lowestRating={lowestRating}
-            handleAddToRanking={handleAddToRanking} />
+            handleAddToRanking={handleAddToRanking}
+            alreadyExists={alreadyExists} />
             <ListRanking
             ranking={ranking} />
         </section>

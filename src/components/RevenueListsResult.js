@@ -3,7 +3,8 @@ function RevenueListsResult({
     name, list, isLoading, hasSearched, totals, 
     avgBudget, avgRevenue, avgRuntime, avgRating, 
     highestBudget, highestRevenue, highestRuntime, highestRating, 
-    lowestBudget, lowestRevenue, lowestRuntime, lowestRating, handleAddToRanking }) {
+    lowestBudget, lowestRevenue, lowestRuntime, lowestRating, 
+    handleAddToRanking, alreadyExists }) {
 
     return (
         <div className="table-container">
@@ -17,7 +18,6 @@ function RevenueListsResult({
 
             {hasSearched && list.length > 0 && (
             <>
-                <p>{`These are the films of ${name}.`}</p>
                 <div className="results-table">
                     <table>
                         <thead>
@@ -77,9 +77,9 @@ function RevenueListsResult({
                 </div>
                 <button 
                 onClick={handleAddToRanking}
-                className="add-button"
+                className={`add-button ${alreadyExists ? "disabled" : ""}`}
                 aria-label="add to ranking" >
-                    Add to Ranking
+                    {alreadyExists ? "Already added" : "Add to ranking"}
                 </button>
             </>)}
         </div>
