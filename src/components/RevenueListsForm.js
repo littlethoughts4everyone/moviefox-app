@@ -13,6 +13,7 @@ function RevenueListsFormActor({ name, handleNameChange, role, handleRoleChange,
                     aria-label="Name"
                     required />
                     <select 
+                    name="Role"
                     value={role}
                     onChange={handleRoleChange}
                     aria-label="Role">
