@@ -6,14 +6,14 @@ export default function AppLayout() {
             <header className="app-header">
                 <div className='header-container'>
                     <div className="title-container">
-                        <h1>MOVIE FOX</h1>
+                        <h1>MOVIE FACTS</h1>
                     </div>
                     <nav className="navigation-container">
-                        <NavLink to="/mutualmovies" className="navigation-link">Find Mutual Movies</NavLink>
-                        <NavLink to="/revenuelists" className="navigation-link">Find Data Lists</NavLink>
-                        <NavLink to="/peopletrivia" className="navigation-link">Find People Trivia</NavLink>
-                        <NavLink to="/findmovies" className="navigation-link">Find Movies</NavLink>
-                        <NavLink to="/characterguessinggame" className="navigation-link">Character Guessing Game</NavLink>
+                        <NavLink to="/mutualmovies" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find Mutual Movies</NavLink>
+                        <NavLink to="/revenuelists" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find Data Lists</NavLink>
+                        <NavLink to="/peopletrivia" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find People Trivia</NavLink>
+                        <NavLink to="/findmovies" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find Movies</NavLink>
+                        <NavLink to="/characterguessinggame" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Character Guessing Game</NavLink>
                     </nav>
                 </div>
             </header>
