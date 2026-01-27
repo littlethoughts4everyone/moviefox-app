@@ -14,6 +14,8 @@ function CharacterGuessingGameResult({ result, isLoading, hasSearched, handleDro
             )}
 
             {hasSearched && result.length > 0 && (
+            <>
+                <p>Drop the character names to the empty fields under the movie posters. Press the "Get Score" button to check your answers. Have fun!</p>
                 <div className="game-container">
                     <div className="character-container">
                         {result.map((movie) => {
@@ -53,6 +55,7 @@ function CharacterGuessingGameResult({ result, isLoading, hasSearched, handleDro
                         })}
                     </div>
                 </div>
+            </>
             )}
             {hasSearched && result.length > 0 && (
             <button
