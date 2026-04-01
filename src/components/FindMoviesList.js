@@ -1,12 +1,12 @@
 
-function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, avgRating, profit, handleClearList }) {
+function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, avgRating, profit, handleClearLists }) {
     return (
     <>
         <div className="lists-container">
             <div className="movie-ranking-list">
                 <p>Budget Ranking</p>
                 <ol>
-                    {movieList.sort((a,b) => b.budget - a.budget).map((entry) => {
+                    {[...movieList].sort((a,b) => b.budget - a.budget).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -21,7 +21,7 @@ function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, 
             <div className="movie-ranking-list">
                 <p>Revenue Ranking</p>
                 <ol>
-                    {movieList.sort((a,b) => b.revenue - a.revenue).map((entry) => {
+                    {[...movieList].sort((a,b) => b.revenue - a.revenue).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -36,7 +36,7 @@ function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, 
             <div className="movie-ranking-list">
                 <p>Runtime Ranking</p>
                 <ol>
-                    {movieList.sort((a,b) => b.runtime - a.runtime).map((entry) => {
+                    {[...movieList].sort((a,b) => b.runtime - a.runtime).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -51,7 +51,7 @@ function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, 
             <div className="movie-ranking-list">
                 <p>Rating Ranking</p>
                 <ol>
-                    {movieList.sort((a,b) => b.vote_average - a.vote_average).map((entry) => {
+                    {[...movieList].sort((a,b) => b.vote_average - a.vote_average).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -118,8 +118,8 @@ function FindMoviesList({ movieList, totals, avgBudget, avgRevenue, avgRuntime, 
         </div>
         <button
         className="clear-button"
-        aria-label="clear list"
-        onClick={handleClearList} >
+        aria-label="clear lists"
+        onClick={handleClearLists} >
             Clear Lists
         </button>
     </>

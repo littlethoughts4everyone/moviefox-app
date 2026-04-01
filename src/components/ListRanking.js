@@ -1,12 +1,13 @@
 
-function ListRanking({ ranking }) {
+function ListRanking({ ranking, handleClearLists }) {
 
     return (
+    <>   
         <div className="lists-container">
             <div className="person-ranking-list">
                 <p>Total Films Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.movieCount - a.movieCount).map((entry) => {
+                    {[...ranking].sort((a,b) => b.movieCount - a.movieCount).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -21,7 +22,7 @@ function ListRanking({ ranking }) {
             <div className="person-ranking-list">
                 <p>Total Budget Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.totalBudget - a.totalBudget).map((entry) => {
+                    {[...ranking].sort((a,b) => b.totalBudget - a.totalBudget).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -36,7 +37,7 @@ function ListRanking({ ranking }) {
             <div className="person-ranking-list">
                 <p>Total Revenue Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.totalRevenue - a.totalRevenue).map((entry) => {
+                    {[...ranking].sort((a,b) => b.totalRevenue - a.totalRevenue).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -51,7 +52,7 @@ function ListRanking({ ranking }) {
             <div className="person-ranking-list">
                 <p>Average Budget Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.avgBudget - a.avgBudget).map((entry) => {
+                    {[...ranking].sort((a,b) => b.avgBudget - a.avgBudget).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -66,7 +67,7 @@ function ListRanking({ ranking }) {
             <div className="person-ranking-list">
                 <p>Average Revenue Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.avgRevenue - a.avgRevenue).map((entry) => {
+                    {[...ranking].sort((a,b) => b.avgRevenue - a.avgRevenue).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -81,7 +82,7 @@ function ListRanking({ ranking }) {
             <div className="person-ranking-list">
                 <p>Total Runtime Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.totalRuntime - a.totalRuntime).map((entry) => {
+                    {[...ranking].sort((a,b) => b.totalRuntime - a.totalRuntime).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -96,7 +97,7 @@ function ListRanking({ ranking }) {
             <div className="person-ranking-list">
                 <p>Average Runtime Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.avgRuntime - a.avgRuntime).map((entry) => {
+                    {[...ranking].sort((a,b) => b.avgRuntime - a.avgRuntime).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -111,7 +112,7 @@ function ListRanking({ ranking }) {
             <div className="person-ranking-list">
                 <p>Average Rating Ranking</p>
                 <ol>
-                    {ranking.sort((a,b) => b.avgRating - a.avgRating).map((entry) => {
+                    {[...ranking].sort((a,b) => b.avgRating - a.avgRating).map((entry) => {
                         return (
                             <li>
                                 <div className="list-entry">
@@ -124,6 +125,13 @@ function ListRanking({ ranking }) {
                 </ol>
             </div>
         </div>
+        <button
+        className="clear-button"
+        aria-label="clear lists"
+        onClick={handleClearLists} >
+            Clear Lists
+        </button>
+    </>
     );
 };
 
