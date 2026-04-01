@@ -44,18 +44,18 @@ p {
 }
 
 .title-container {
-  height: 8rem;
+  height: 5rem;
   background: radial-gradient(circle,rgba(41, 75, 75, 1) 0%, rgba(64, 112, 112, 1) 100%, rgba(64, 112, 112, 1) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   font-family: "Anton";
-  font-size: 2.5rem;
+  font-size: 1.5rem;
   letter-spacing: 5px;
 }
 
 .navigation-container {
-  height: 5rem;
+  height: 4rem;
   margin: 0 auto;
   background-color: rgb(31 31 31);
   display: flex;
@@ -65,9 +65,9 @@ p {
 
 .nav-link {
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   color: #e0d19e;
-  padding: 10px;
+  padding: 5px 10px;
   border: 1px solid rgb(31 31 31);
   border-radius: 5px;
   transition: border-color 0.2s ease-in;
@@ -85,7 +85,7 @@ p {
 .main-container {
   display: flex;
   justify-content: center;
-  min-height: 47rem;
+  min-height: 51rem;
 }
 
 .section-container {
@@ -141,6 +141,10 @@ input {
   background-color: rgb(31 31 31);
 }
 
+input::placeholder {
+  color: rgb(173, 173, 173);
+}
+
 select {
   width: 100%;
   padding: 7px 5px;
@@ -172,6 +176,13 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.movie-container {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Revenue List Styles */
