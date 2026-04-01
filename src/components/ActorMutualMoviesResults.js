@@ -14,7 +14,7 @@ function ActorMutualMoviesResults({ mutualMovies, isLoading, hasSearched }) {
             <>
                 {mutualMovies.map((movie) => {
 
-                    const posterPath = `https://image.tmdb.org/t/p/original/${movie.poster}`;
+                    const posterPath = movie.poster ? `https://image.tmdb.org/t/p/original/${movie.poster}` : './black-image.jpg';
 
                     return (
                         <div key={movie.id} className="movie-container">
