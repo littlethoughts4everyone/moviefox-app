@@ -4,6 +4,7 @@ import PeopleTriviaResults from "./PeopleTriviaResults";
 import PeopleTriviaMovieList from "./PeopleTriviaMovieList";
 import { searchPerson, getMovieCredits, getMovieDetails } from "../util/tmdbCall";
 import { GENRES, STUDIOS } from "../util/genre_studio_data";
+import { filterCreditsByRole, filterMovieDetails } from "../util/movieFilters";
 
 function PeopleTrivia() {
     const [name, setName] = useState("");
@@ -52,38 +53,7 @@ function PeopleTrivia() {
             return;
             }
 
-            let filteredMovies = [];
-
-            if (role === "Actor/Actress") {
-            filteredMovies = credits.cast.filter(movie =>
-                !movie.genre_ids.includes(99) &&
-                !movie.genre_ids.includes(10770) &&
-                movie.original_title !== "Final Cut: Hölgyeim és uraim" &&
-                !movie.character.includes("uncredited")
-                )
-                .map(movie => ({ id: movie.id }));
-            } else if (role === "Director") {
-            filteredMovies = credits.crew.filter(movie =>
-                !movie.genre_ids.includes(99) &&
-                !movie.genre_ids.includes(10770) &&
-                movie.job === "Director"
-                )
-                .map(movie => ({ id: movie.id }));
-            } else if (role === "Composer") {
-            filteredMovies = credits.crew.filter(movie =>
-                !movie.genre_ids.includes(99) &&
-                !movie.genre_ids.includes(10770) &&
-                movie.job === "Original Music Composer"
-                )
-                .map(movie => ({ id: movie.id }));
-            } else if (role === "Cinematographer") {
-            filteredMovies = credits.crew.filter(movie =>
-                !movie.genre_ids.includes(99) &&
-                !movie.genre_ids.includes(10770) &&
-                movie.job === "Director of Photography"
-                )
-                .map(movie => ({ id: movie.id }));
-            }
+            const filteredMovies = filterCreditsByRole(credits, role);
 
             if (filteredMovies.length === 0) {
             setGenreCount([]); 
@@ -97,15 +67,7 @@ function PeopleTrivia() {
             filteredMovies.map(movie => getMovieDetails(movie.id))
             );
 
-            const filteredMovieDetails = movieDetails
-            .filter(
-                movie =>
-                movie &&
-                movie.runtime > 60 &&
-                movie.runtime < 247 &&
-                movie.vote_average > 0 &&
-                movie.vote_count > 140
-            );
+            const filteredMovieDetails = filterMovieDetails(movieDetails);
 
             const genreTotals = filteredMovieDetails.reduce((acc, movie) => {
                 movie.genres.forEach(({ id }) => {

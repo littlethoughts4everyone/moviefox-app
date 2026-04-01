@@ -3,6 +3,8 @@ import RevenueListsForm from "./RevenueListsForm";
 import RevenueListsResult from "./RevenueListsResult";
 import ListRanking from "./ListRanking";
 import { searchPerson, getMovieCredits, getMovieDetails } from "../util/tmdbCall";
+import { filterCreditsByRole, filterMovieDetails } from "../util/movieFilters";
+import { useMovieStats } from "../util/useMovieStats";
 
 function RevenueLists() {
     const [name, setName] = useState("");
@@ -44,46 +46,7 @@ function RevenueLists() {
             return;
             }
 
-            let filteredMovies = [];
-
-            if (role === "Actor/Actress") {
-            filteredMovies = credits.cast
-                .filter(
-                movie =>
-                    !movie.genre_ids.includes(99) &&
-                    !movie.genre_ids.includes(10770) &&
-                    movie.original_title !== "Final Cut: Hölgyeim és uraim" &&
-                    !movie.character.includes("uncredited")
-                )
-                .map(movie => ({ id: movie.id }));
-            } else if (role === "Director") {
-            filteredMovies = credits.crew
-                .filter(
-                movie =>
-                    !movie.genre_ids.includes(99) &&
-                    !movie.genre_ids.includes(10770) &&
-                    movie.job === "Director"
-                )
-                .map(movie => ({ id: movie.id }));
-            } else if (role === "Composer") {
-            filteredMovies = credits.crew
-                .filter(
-                movie =>
-                    !movie.genre_ids.includes(99) &&
-                    !movie.genre_ids.includes(10770) &&
-                    movie.job === "Original Music Composer"
-                )
-                .map(movie => ({ id: movie.id }));
-            } else if (role === "Cinematographer") {
-            filteredMovies = credits.crew
-                .filter(
-                movie =>
-                    !movie.genre_ids.includes(99) &&
-                    !movie.genre_ids.includes(10770) &&
-                    movie.job === "Director of Photography"
-                )
-                .map(movie => ({ id: movie.id }));
-            }
+            const filteredMovies = filterCreditsByRole(credits, role);
 
             if (filteredMovies.length === 0) {
             setList([]);
@@ -96,19 +59,8 @@ function RevenueLists() {
             filteredMovies.map(movie => getMovieDetails(movie.id))
             );
 
-            const sortedMovieDetails = movieDetails
-            .filter(
-                movie =>
-                movie &&
-                movie.runtime > 60 &&
-                movie.runtime < 247 &&
-                movie.vote_average > 0 &&
-                movie.vote_count > 140
-            )
-            .sort(
-                (a, b) =>
-                new Date(a.release_date) - new Date(b.release_date)
-            );
+            const sortedMovieDetails = filterMovieDetails(movieDetails)
+            .sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
 
             setList(sortedMovieDetails);
             setHasSearched(true);
@@ -121,61 +73,21 @@ function RevenueLists() {
         }
     };
 
-    const totals = list.reduce(
-        (acc, movie) => {
-        acc.budget += movie.budget || 0;
-        acc.revenue += movie.revenue || 0;
-        acc.runtime += movie.runtime || 0;
-
-        const rating = Number(movie.vote_average);
-
-        if (!Number.isNaN(rating)) {
-            acc.rating += rating;
-        }
-
-        return acc;
-        },
-        {
-            budget: 0,
-            revenue: 0,
-            runtime: 0,
-            rating: 0,
-        }
-    );
-
-    const counts = list.reduce(
-        (acc, movie) => {
-        if (movie.budget > 0) acc.budget++;
-        if (movie.revenue > 0) acc.revenue++;
-        if (movie.runtime > 0) acc.runtime++;
-
-        const rating = Number(movie.vote_average);
-        if (!Number.isNaN(rating)) acc.rating++;
-
-        return acc;
-        },
-        {
-            budget: 0,
-            revenue: 0,
-            runtime: 0,
-            rating: 0,
-        }
-    );
-
-    const highestBudget = list.reduce((max, movie) => Math.max(max, movie.budget || 0), 0);
-    const highestRevenue = list.reduce((max, movie) => Math.max(max, movie.revenue || 0), 0);
-    const highestRuntime = list.reduce((max, movie) => Math.max(max, movie.runtime || 0), 0);
-    const highestRating = list.reduce((max, movie) => Math.max(max, movie.vote_average || 0), 0);
-
-    const lowestBudget = Math.min(...list.map(movie => movie.budget).filter(budget => budget > 0));
-    const lowestRevenue = Math.min(...list.map(movie => movie.revenue).filter(revenue => revenue > 0));
-    const lowestRuntime = Math.min(...list.map(movie => movie.runtime || 0));
-    const lowestRating = Math.min(...list.map(movie => movie.vote_average || 0));
-
-    const avgBudget = counts.budget > 0 ? Math.round(totals.budget / counts.budget) : 0;
-    const avgRevenue = counts.revenue > 0 ? Math.round(totals.revenue / counts.revenue) : 0;
-    const avgRuntime = counts.runtime > 0 ? Math.round(totals.runtime / counts.runtime) : 0;
-    const avgRating = counts.rating > 0 ? (totals.rating / counts.rating).toFixed(2) : "N/A";
+    const {
+        totals,
+        avgBudget,
+        avgRevenue,
+        avgRuntime,
+        avgRating,
+        highestBudget,
+        highestRevenue,
+        highestRuntime,
+        highestRating,
+        lowestBudget,
+        lowestRevenue,
+        lowestRuntime,
+        lowestRating,
+    } = useMovieStats(list);
 
     const rankingEntry = {
         name: name,
@@ -201,6 +113,10 @@ function RevenueLists() {
 
         setRanking(prev => [...prev, rankingEntry]);
     };
+
+    const handleClearLists = () => {
+        setRanking([]);
+    }
 
     return (
         <section className="section-container">
@@ -232,7 +148,8 @@ function RevenueLists() {
             handleAddToRanking={handleAddToRanking}
             alreadyExists={alreadyExists} />
             <ListRanking
-            ranking={ranking} />
+            ranking={ranking}
+            handleClearLists={handleClearLists} />
         </section>
     )
 

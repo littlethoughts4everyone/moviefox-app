@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { searchPerson, getMovieCredits } from "../util/tmdbCall";
+import { filterCastCredits } from "../util/movieFilters";
 import CharacterGuessingGameForm from "./CharacterGuessingGameForm";
 import CharacterGuessingGameResult from "./CharacterGuessingGameResult";
 
@@ -46,13 +47,7 @@ function CharacterGuessingGame() {
                 return;     
             }
 
-            let filteredCredits = [];
-
-            filteredCredits = credits.cast.filter(movie =>
-                !movie.genre_ids.includes(99) &&
-                !movie.genre_ids.includes(10770) &&
-                !movie.character.includes("uncredited")
-                ).map(movie => ({ 
+            const filteredCredits = filterCastCredits(credits.cast).map(movie => ({
                     id: movie.id,
                     title: movie.title,
                     character: movie.character,
@@ -61,7 +56,6 @@ function CharacterGuessingGame() {
                     popularity: movie.popularity,
                     vote_count: movie.vote_count
             }));
-
             if (filteredCredits.length === 0) {
                 setResult([]); 
                 setHasSearched(true);
