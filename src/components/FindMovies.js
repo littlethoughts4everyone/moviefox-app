@@ -58,7 +58,7 @@ function FindMovies() {
       setMovieList((prev) => [...prev, movie]);
     },[movieList]);
 
-    const { totals, avgBudget, avgRevenue, avgRuntime, avgRating, profit } = useMovieStats(movieList);
+    const { totals, avgBudget, avgRevenue, avgRuntime, avgRating, profit, increase } = useMovieStats(movieList);
 
     const handleClearLists = () => {
         setMovieList([]);
@@ -84,6 +84,7 @@ function FindMovies() {
             avgRuntime={avgRuntime}
             avgRating={avgRating}
             profit={profit}
+            increase={increase}
             handleClearLists={handleClearLists} />
         </section>
     );
