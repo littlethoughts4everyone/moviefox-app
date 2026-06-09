@@ -1,9 +1,9 @@
-function RevenueListsFormActor({ name, handleNameChange, role, handleRoleChange, getRevenueList }) {
+function RevenueListsForm({ name, handleNameChange, role, handleRoleChange, getRevenueList }) {
 
     return (
         <div>
             <div className="form-container">
-                <p>Type in the name of an actor/actress, director, composer or cinematographer to get a list of their movies including budget and revenue and other information.</p>
+                <p className="text-shadow">Search for an actor/actress, director, composer or cinematographer to get their movie data list.</p>
                 <form onSubmit={getRevenueList}>
                     <input 
                     type="text"
@@ -33,4 +33,4 @@ function RevenueListsFormActor({ name, handleNameChange, role, handleRoleChange,
     );
 }
 
-export default RevenueListsFormActor;
+export default RevenueListsForm;
