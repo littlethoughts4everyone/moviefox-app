@@ -9,17 +9,27 @@ function PeopleTriviaMovieList({ movieList }) {
 
         return (
           <div key={movie.id} className="movie-list-item">
-            <h4>{movie.title}</h4>
 
             {posterPath && (
-              <img
-                className="movie-list-poster"
-                src={posterPath}
-                alt={`${movie.title} poster`}
-              />
-            )}
+              <div className="poster-container">
 
-            <p>{movie.release_date?.slice(0, 4) ?? "—"}</p>
+                <img
+                  src={posterPath}
+                  alt={`${movie.title} poster`}
+                  className="movie-poster"
+                />
+
+                <div className="poster-overlay">
+                  <p>
+                    {new Date(movie.release_date).toLocaleDateString()}
+                  </p>
+                  <p>
+                    {movie.tagline}
+                  </p>
+                </div>
+
+              </div>
+            )}
           </div>
         );
       })}
@@ -28,3 +38,6 @@ function PeopleTriviaMovieList({ movieList }) {
 }
 
 export default PeopleTriviaMovieList;
+
+// <h4>{movie.title}</h4>
+// <p>{movie.release_date?.slice(0, 4) ?? "—"}</p>
