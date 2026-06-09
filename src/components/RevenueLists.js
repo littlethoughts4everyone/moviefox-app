@@ -1,7 +1,7 @@
 import { useState } from "react";
 import RevenueListsForm from "./RevenueListsForm";
 import RevenueListsResult from "./RevenueListsResult";
-import ListRanking from "./ListRanking";
+import RevenueListsRanking from "./RevenueListsRanking";
 import { searchPerson, getMovieCredits, getMovieDetails } from "../util/tmdbCall";
 import { filterCreditsByRole, filterMovieDetails } from "../util/movieFilters";
 import { useMovieStats } from "../util/useMovieStats";
@@ -55,12 +55,30 @@ function RevenueLists() {
             return;
             }
 
-            const movieDetails = await Promise.all(
-            filteredMovies.map(movie => getMovieDetails(movie.id))
+            const chunkArray = (array, size) => {
+                const chunks = [];
+
+                for (let i = 0; i < array.length; i += size) {
+                    chunks.push(array.slice(i, i + size));
+                }
+
+                return chunks;
+            };
+
+            const movieChunks = chunkArray(filteredMovies, 20);
+
+            let movieDetails = [];
+
+            for (const chunk of movieChunks) {
+            const results = await Promise.all(
+                chunk.map(movie => getMovieDetails(movie.id))
             );
 
+            movieDetails.push(...results);
+            }
+
             const sortedMovieDetails = filterMovieDetails(movieDetails)
-            .sort((a, b) => new Date(a.release_date) - new Date(b.release_date));
+            .sort((a, b) => a.release_date.localeCompare(b.release_date));
 
             setList(sortedMovieDetails);
             setHasSearched(true);
@@ -79,6 +97,9 @@ function RevenueLists() {
         avgRevenue,
         avgRuntime,
         avgRating,
+        totalRuntimeHrs,
+        profit,
+        increase,
         highestBudget,
         highestRevenue,
         highestRuntime,
@@ -94,7 +115,8 @@ function RevenueLists() {
         movieCount: list.length,
         totalBudget: totals.budget,
         totalRevenue: totals.revenue,
-        totalRuntime: totals.runtime,
+        increase: increase,
+        totalRuntime: totalRuntimeHrs,
         avgBudget: avgBudget,
         avgRevenue: avgRevenue,
         avgRuntime: avgRuntime,
@@ -137,6 +159,9 @@ function RevenueLists() {
             avgRevenue={avgRevenue}
             avgRuntime={avgRuntime}
             avgRating={avgRating}
+            totalRuntimeHrs={totalRuntimeHrs}
+            profit={profit}
+            increase={increase}
             highestBudget={highestBudget}
             highestRevenue={highestRevenue}
             highestRuntime={highestRuntime}
@@ -147,7 +172,7 @@ function RevenueLists() {
             lowestRating={lowestRating}
             handleAddToRanking={handleAddToRanking}
             alreadyExists={alreadyExists} />
-            <ListRanking
+            <RevenueListsRanking
             ranking={ranking}
             handleClearLists={handleClearLists} />
         </section>
