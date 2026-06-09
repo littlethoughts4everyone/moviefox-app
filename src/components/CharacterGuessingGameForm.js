@@ -3,8 +3,8 @@ function CharacterGuessingGameForm({ actor, handleActorChange, playGame, mode, h
 
     return (
         <div className="form-container">
-            <p>Type in the name of an actor or actress to play the game.</p>
-            <p>The easier the mode the more popular the movies. If you can't find any movies, try a harder mode.</p>
+            <p className="text-shadow">Search for an actor or actress to play the game.</p>
+            <p className="text-shadow">The easier the mode the more popular the movies. If you can't find any movies, try a harder mode.</p>
             <form onSubmit={playGame}>
                 <input 
                 type="text"
