@@ -3,7 +3,7 @@ function ActorMutualMoviesForm({ nameA, nameB, handleNameChangeA, handleNameChan
 
     return (
         <div className="form-container">
-            <p>Type in the name of two actors, actresses or directors to find out, 
+            <p className="text-shadow">Search for two actors, actresses or directors to find out, 
                 if they ever worked on a movie together</p>
             <form onSubmit={getMutualMovieCredits}>
                 <input 
