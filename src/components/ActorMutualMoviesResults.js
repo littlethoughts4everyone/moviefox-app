@@ -2,7 +2,7 @@
 function ActorMutualMoviesResults({ mutualMovies, isLoading, hasSearched }) {
 
     return (
-        <div className="results-container">
+        <div className="movie-list">
             {isLoading && (
                 <p>Searching...</p>
             )}
@@ -14,15 +14,33 @@ function ActorMutualMoviesResults({ mutualMovies, isLoading, hasSearched }) {
             <>
                 {mutualMovies.map((movie) => {
 
-                    const posterPath = movie.poster ? `https://image.tmdb.org/t/p/original/${movie.poster}` : './black-image.jpg';
+                const posterPath = movie.poster ? `https://image.tmdb.org/t/p/original/${movie.poster}` : './black-image.jpg';
 
-                    return (
-                        <div key={movie.id} className="movie-container">
-                            <h3>{movie.title}</h3>
-                            <img src={posterPath} alt={`${movie.title} poster`}/>
-                            <p>{movie.year.slice(0, 4)}</p>
+                return (
+                    <div key={movie.id} className="movie-list-item">
+
+                        {posterPath && (
+                        <div className="poster-container">
+
+                            <img
+                            src={posterPath}
+                            alt={`${movie.title} poster`}
+                            className="movie-poster"
+                            />
+
+                            <div className="poster-overlay">
+                            <p>
+                                {new Date(movie.year).toLocaleDateString()}
+                            </p>
+                            <p>
+                                {movie.title}
+                            </p>
+                            </div>
+
                         </div>
-                    )
+                        )}
+                    </div>
+                    );
                 })}
             </>)}
         </div>
