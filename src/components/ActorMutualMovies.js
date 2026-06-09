@@ -47,24 +47,18 @@ function ActorMutualMovies() {
 
             let movieCreditsA = [];
             let movieCreditsB = [];
-            let mutualCredits = [];
 
-            creditsA.cast.map((movie) => movieCreditsA.push({"id": movie.id, "title": movie.original_title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
-            creditsA.crew.map((movie) => movieCreditsA.push({"id": movie.id, "title": movie.original_title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
-            creditsB.cast.map((movie) => movieCreditsB.push({"id": movie.id, "title": movie.original_title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
-            creditsB.crew.map((movie) => movieCreditsB.push({"id": movie.id, "title": movie.original_title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
+            creditsA.cast.map((movie) => movieCreditsA.push({"id": movie.id, "title": movie.title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
+            creditsA.crew.map((movie) => movieCreditsA.push({"id": movie.id, "title": movie.title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
+            creditsB.cast.map((movie) => movieCreditsB.push({"id": movie.id, "title": movie.title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
+            creditsB.crew.map((movie) => movieCreditsB.push({"id": movie.id, "title": movie.title, "year": movie.release_date, "poster": movie.poster_path, "genreIds": movie.genre_ids}));
         
-            for (let i = 0; i < movieCreditsA.length; i++) {
-                for (let j = 0; j < movieCreditsB.length; j++) {
-                    if (movieCreditsA[i].id === movieCreditsB[j].id) {
-                        mutualCredits.push({"id": movieCreditsA[i].id, "title": movieCreditsA[i].title, "year": movieCreditsA[i].year, "poster": movieCreditsA[i].poster, "genreIds": movieCreditsA[i].genreIds});
-                    };
-                }
-            }
+            const idsA = new Set(movieCreditsA.map(m => m.id));
+            const mutualCredits = movieCreditsB.filter(m => idsA.has(m.id));
 
             const uniqueMutualCredits = [...new Map(mutualCredits.map(credit => [credit.id, credit])).values()];
 
-            const filteredMutualCredits = uniqueMutualCredits.filter(credit => !credit.genreIds.includes(99) && credit.title !== "Final Cut: Hölgyeim és uraim");
+            const filteredMutualCredits = uniqueMutualCredits.filter(credit => !credit.genreIds.includes(99) && credit.title !== "Final Cut: Ladies and Gentlemen");
 
             setMutualMovies(filteredMutualCredits);
             setHasSearched(true);
@@ -77,7 +71,7 @@ function ActorMutualMovies() {
         }};
 
     return (
-        <section className='section-container'>
+        <section>
             <h2>Find Mutual Movies</h2>
             <ActorMutualMoviesForm
             nameA={nameA}
