@@ -1,7 +1,7 @@
 
 function RevenueListsResult({ 
     name, list, isLoading, hasSearched, totals, 
-    avgBudget, avgRevenue, avgRuntime, avgRating, 
+    avgBudget, avgRevenue, avgRuntime, avgRating, totalRuntimeHrs, profit, increase,
     highestBudget, highestRevenue, highestRuntime, highestRating, 
     lowestBudget, lowestRevenue, lowestRuntime, lowestRating, 
     handleAddToRanking, alreadyExists }) {
@@ -18,7 +18,7 @@ function RevenueListsResult({
 
             {hasSearched && list.length > 0 && (
             <>
-                <div className="results-table">
+                <div className="data-table">
                     <table>
                         <thead>
                             <tr>
@@ -55,6 +55,8 @@ function RevenueListsResult({
                             <tr>
                                 <td>Total Budget</td>
                                 <td>Total Revenue</td>
+                                <td>Profit</td>
+                                <td>Increase</td>
                                 <td>Average Budget</td>
                                 <td>Average Revenue</td>
                                 <td>Total Runtime</td>
@@ -66,9 +68,11 @@ function RevenueListsResult({
                             <tr>
                                 <td>{`${totals.budget.toLocaleString()} $`}</td>
                                 <td>{`${totals.revenue.toLocaleString()} $`}</td>
+                                <td>{`${profit.toLocaleString()} $`}</td>
+                                <td>{`${increase.toFixed()} %`}</td>
                                 <td>{`${avgBudget.toLocaleString()} $`}</td>
                                 <td>{`${avgRevenue.toLocaleString()} $`}</td>
-                                <td>{`${totals.runtime} min`}</td>
+                                <td>{`${totalRuntimeHrs} hrs`}</td>
                                 <td>{`${avgRuntime} min`}</td>
                                 <td>{avgRating}</td>
                             </tr>
@@ -79,7 +83,7 @@ function RevenueListsResult({
                 onClick={handleAddToRanking}
                 className={`add-button ${alreadyExists ? "disabled" : ""}`}
                 aria-label="add to ranking" >
-                    {alreadyExists ? "Already added" : "Add to ranking"}
+                    {alreadyExists ? "Already Added" : "Add To Ranking"}
                 </button>
             </>)}
         </div>
