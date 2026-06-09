@@ -15,7 +15,7 @@ function CharacterGuessingGameResult({ result, isLoading, hasSearched, handleDro
 
             {hasSearched && result.length > 0 && (
             <>
-                <p>Drop the character names to the empty fields under the movie posters. Press the "Get Score" button to check your answers. Have fun!</p>
+                <p className="text-shadow">Drag the character names to the empty fields below the movie posters. Click the "Get Score" button to check the result. Have fun!</p>
                 <div className="game-container">
                     <div className="character-container">
                         {result.map((movie) => {
@@ -33,7 +33,7 @@ function CharacterGuessingGameResult({ result, isLoading, hasSearched, handleDro
                         })}
                     </div>
                     <div className="check-container">
-                        {[...result].sort((a, b) => new Date(a.release_date) - new Date(b.release_date)).map((movie) => {
+                        {[...result].sort((a, b) => a.release_date.localeCompare(b.release_date)).map((movie) => {
 
                             const posterPath = `https://image.tmdb.org/t/p/original/${movie.poster_path}`;
 
