@@ -114,7 +114,7 @@ function CharacterGuessingGame() {
     };
 
     return (
-        <section className="gaming-section-container">
+        <section className="section-container">
             <h2>Character Guessing Game</h2>
             <CharacterGuessingGameForm
             actor={actor}
