@@ -18,7 +18,7 @@ function PeopleTriviaResults({ name, genreCount, studioCount, isLoading, hasSear
             {hasSearched && Object.keys(genreCount).length > 0 && (
                 <>
                     <div className="chart-container">
-                        <p>{`These are the genres of ${name} movies:`}</p>
+                        <p className="text-shadow">{`Genres of ${name} movies:`}</p>
                         <div id="results-chart-one">
                             <table className="charts-css bar show-labels show-data">
                                 <tbody>
@@ -29,9 +29,9 @@ function PeopleTriviaResults({ name, genreCount, studioCount, isLoading, hasSear
                                     const size = count / maxGenreCount;
 
                                     return (
-                                        <tr key={key} className="clickable-cell">
+                                        <tr key={key}>
                                             <th scope="row">{GENRES[key].label}</th>
-                                            <td style={{ "--size": size }} onClick={() => showGenreMovieList(key)}> <span className="data">{count.toLocaleString()}</span> </td>
+                                            <td className="clickable-cell" style={{ "--size": size }} onClick={() => showGenreMovieList(key)}> <span className="data">{count.toLocaleString()}</span> </td>
                                         </tr>
                                     );
                                 })}
@@ -40,7 +40,7 @@ function PeopleTriviaResults({ name, genreCount, studioCount, isLoading, hasSear
                         </div>
                     </div>
                     <div className="chart-container">
-                        <p>{`These are the production studios of ${name} movies:`}</p>
+                        <p className="text-shadow">{`Production companies of ${name} movies:`}</p>
                         <div id="results-chart-two">
                             <table className="charts-css bar show-labels show-data">
                                 <tbody>
