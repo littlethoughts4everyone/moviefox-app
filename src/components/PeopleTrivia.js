@@ -7,6 +7,7 @@ import { GENRES, STUDIOS } from "../util/genre_studio_data";
 import { filterCreditsByRole, filterMovieDetails } from "../util/movieFilters";
 
 function PeopleTrivia() {
+    const [formInput, setFormInput] = useState("");
     const [name, setName] = useState("");
     const [role, setRole] = useState("Actor/Actress");
     const [details, setDetails] = useState([]);
@@ -17,7 +18,7 @@ function PeopleTrivia() {
     const [movieList, setMovieList] = useState([]);
 
     const handleNameChange = (e) => {
-        setName(e.currentTarget.value)
+        setFormInput(e.currentTarget.value)
     };
 
     const handleRoleChange = (e) => {
@@ -31,7 +32,7 @@ function PeopleTrivia() {
         setIsLoading(true);
 
         try {
-            const personId = await searchPerson(name);
+            const personId = await searchPerson(formInput);
 
             if (!personId) {
             setDetails([]);
@@ -67,9 +68,10 @@ function PeopleTrivia() {
             filteredMovies.map(movie => getMovieDetails(movie.id))
             );
 
-            const filteredMovieDetails = filterMovieDetails(movieDetails);
+            const sortedMovieDetails = filterMovieDetails(movieDetails)
+            .sort((a, b) => a.release_date.localeCompare(b.release_date));
 
-            const genreTotals = filteredMovieDetails.reduce((acc, movie) => {
+            const genreTotals = sortedMovieDetails.reduce((acc, movie) => {
                 movie.genres.forEach(({ id }) => {
                     const entry = Object.entries(GENRES).find(
                     ([, genre]) => genre.id === id
@@ -85,7 +87,7 @@ function PeopleTrivia() {
                 }, Object.fromEntries(Object.keys(GENRES).map(key => [key, 0])
             ));
 
-           const studioTotals = filteredMovieDetails.reduce((acc, movie) => {
+           const studioTotals = sortedMovieDetails.reduce((acc, movie) => {
                 movie.production_companies.forEach(company => {
                     const entry = Object.entries(STUDIOS).find(
                     ([, studio]) => studio.ids.includes(company.id)
@@ -101,7 +103,8 @@ function PeopleTrivia() {
                 }, Object.fromEntries(Object.keys(STUDIOS).map(key => [key, 0])
             ));
 
-            setDetails(filteredMovieDetails);
+            setName(formInput);
+            setDetails(sortedMovieDetails);
             setGenreCount(genreTotals); 
             setStudioCount(studioTotals);
             setHasSearched(true);
@@ -136,10 +139,10 @@ function PeopleTrivia() {
     };
 
     return (
-        <section className="section-container">
+        <section>
             <h2>Find People Trivia</h2>
             <PeopleTriviaForm 
-            name={name}
+            formInput={formInput}
             handleNameChange={handleNameChange}
             getPeopleTrivia={getPeopleTrivia}
             role={role}

@@ -1,14 +1,14 @@
 
-function PeopleTriviaForm({ name, handleNameChange, role, handleRoleChange, getPeopleTrivia }) {
+function PeopleTriviaForm({ formInput, handleNameChange, role, handleRoleChange, getPeopleTrivia }) {
 
     return (
         <div>
             <div className="form-container">
-                <p>Type in the name of an actor/actress, director, composer or cinematographer to get some trivia about them.</p>
+                <p className="text-shadow">Search for an actor/actress, director, composer or cinematographer to get a graph of their films genres and movie studios.</p>
                 <form onSubmit={getPeopleTrivia}>
                     <input 
                     type="text"
-                    value={name}
+                    value={formInput}
                     onChange={handleNameChange}
                     placeholder="Name"
                     aria-label="Name"
