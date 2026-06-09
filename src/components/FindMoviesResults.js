@@ -19,18 +19,22 @@ function FindMoviesResults({ results, isLoading, hasSearched, handleAddToMovieLi
                     return (
                         <div key={movie.id} className="movie-result-container">
                             <h4>{movie.title}</h4>
-                            <img className="movie-list-poster" src={posterPath} alt={`${movie.title} poster`}/>
-                            <p>{movie.release_date.slice(0, 4)}</p>
-                            <p>{`Budget: ${movie.budget.toLocaleString()} $`}</p>
-                            <p>{`Revenue: ${movie.revenue.toLocaleString()} $`}</p>
-                            <p>{`Runtime: ${movie.runtime} min`}</p>
-                            <p>{`Rating: ${movie.vote_average.toFixed(1)}`}</p>
-                            <button 
-                            onClick={() => handleAddToMovieList(movie)}
-                            className="add-movie-button"
-                            aria-label="add to movie list" >
-                                Add to Movie List
-                            </button>
+                            <div className="movie-info-container">
+                                <img className="movie-list-poster" src={posterPath} alt={`${movie.title} poster`}/>
+                                <div className="movie-data">
+                                    <p>{movie.release_date.slice(0, 4)}</p>
+                                    <p>{`Budget: ${movie.budget.toLocaleString()} $`}</p>
+                                    <p>{`Revenue: ${movie.revenue.toLocaleString()} $`}</p>
+                                    <p>{`Runtime: ${movie.runtime} min`}</p>
+                                    <p>{`Rating: ${movie.vote_average.toFixed(1)}`}</p>
+                                    <button 
+                                    onClick={() => handleAddToMovieList(movie)}
+                                    className="add-movie-button"
+                                    aria-label="add to movie list" >
+                                        Add to List
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     )
                 })}
