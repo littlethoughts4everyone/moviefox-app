@@ -1,4 +1,5 @@
 import {Outlet, NavLink} from "react-router-dom";
+import MobileMenu from "./components/MobileMenu";
 
 export default function AppLayout() {
     return (
@@ -6,15 +7,17 @@ export default function AppLayout() {
             <header className="app-header">
                 <div className='header-container'>
                     <div className="title-container">
-                        <h1>MOVIE FACTS</h1>
+                        <NavLink to="/" end className="home-link" >
+                            <h1>MOVIE DATA FINDER</h1>
+                        </NavLink>
                     </div>
                     <nav className="navigation-container">
-                        <NavLink to="/mutualmovies" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find Mutual Movies</NavLink>
-                        <NavLink to="/revenuelists" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find Data Lists</NavLink>
-                        <NavLink to="/peopletrivia" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find People Trivia</NavLink>
-                        <NavLink to="/findmovies" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Find Movies</NavLink>
-                        <NavLink to="/characterguessinggame" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Character Guessing Game</NavLink>
+                        <NavLink to="/findmovies" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Movies</NavLink>
+                        <NavLink to="/revenuelists" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Movie Lists</NavLink>
+                        <NavLink to="/people" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>People</NavLink>
+                        <NavLink to="/characterguessinggame" className={({ isActive }) => isActive ? "nav-link active" : "nav-link"}>Character Game</NavLink>
                     </nav>
+                    <MobileMenu />
                 </div>
             </header>
             <main className="main-container">
@@ -24,9 +27,9 @@ export default function AppLayout() {
                 <div className="footer-container">
                     <p className="foot-notes">© 2025 Manuel Weiher</p>
                     <div className="socialmedia-icons">
-                        <a href="#" class="fa fa-facebook"></a>
-                        <a href="#" class="fa fa-instagram"></a>
-                        <a href="#" class="fa fa-youtube"></a>
+                        <a href="#" className="fa fa-facebook"></a>
+                        <a href="#" className="fa fa-instagram"></a>
+                        <a href="#" className="fa fa-youtube"></a>
                     </div>
                 </div>
             </footer>
