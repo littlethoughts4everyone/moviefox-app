@@ -59,11 +59,23 @@ ul {
 /* Header, Main and Footer Styles */
 
 .app-header {
+  position: sticky;
+  top: 0;
   width: 100%;
+  z-index: 10;
   background: radial-gradient(circle,rgba(31, 57, 57, 1) 0%, rgba(33, 93, 93, 1) 100%, rgba(33, 93, 93, 1) 100%);
   height: 5rem;
   border-top: 3px solid #1f1f1f;
   border-bottom: 3px solid #1f1f1f;
+  transition: transform 0.5s ease;
+}
+
+.app-header.visible {
+    transform: translateY(0);
+}
+
+.app-header.hidden {
+    transform: translateY(-100%);
 }
 
 .header-container {
@@ -282,14 +294,11 @@ button:hover {
     transition: opacity 0.3s ease;
     cursor: pointer;
     z-index: 2;
-    font-size: 2rem;
-    border: none;
     color: #e0d19e;
-    font-size: 3rem;
     background-color: #1f1f1f94;
     min-width: 80px;
     padding: 5px;
-}
+} 
 
 .arrow:hover {
   background-color: #e0d09e91;

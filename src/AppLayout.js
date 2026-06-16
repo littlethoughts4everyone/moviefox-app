@@ -1,10 +1,41 @@
 import {Outlet, NavLink} from "react-router-dom";
 import MobileMenu from "./components/MobileMenu";
+import { useEffect, useState } from "react";
 
 export default function AppLayout() {
+    const [showHeader, setShowHeader] = useState(true);
+
+    useEffect(() => {
+        let lastScrollY = window.scrollY;
+
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY < 100) {
+                setShowHeader(true);
+                lastScrollY = currentScrollY;
+                return;
+            }
+
+            if (currentScrollY < lastScrollY) {
+                setShowHeader(true);
+            } else {
+                setShowHeader(false);
+            }
+
+            lastScrollY = currentScrollY;
+        };
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, []);
+
     return (
         <div className="layout">
-            <header className="app-header">
+            <header className={`app-header ${showHeader ? "visible" : "hidden"}`}>
                 <div className='header-container'>
                     <div className="title-container">
                         <NavLink to="/" end className="home-link" >
